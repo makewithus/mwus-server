@@ -3318,7 +3318,7 @@ export default function ChatWidget() {
 
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const inputRef       = useRef<HTMLInputElement>(null);
-  const recognitionRef = useRef<SpeechRecognition | null>(null);
+const recognitionRef = useRef<any>(null);
   const timerRef       = useRef<ReturnType<typeof setInterval> | null>(null);
   // ✅ FIX: track whether user is actively typing to prevent scroll stealing
   const isUserTypingRef = useRef(false);
@@ -3483,7 +3483,7 @@ export default function ChatWidget() {
     rec.lang = "en-IN"; rec.interimResults = false; rec.maxAlternatives = 1; rec.continuous = false;
 
     rec.onstart = () => { setIsListening(true); setVoiceStatus("Listening..."); };
-    rec.onresult = (e: SpeechRecognitionEvent) => {
+    rec.onresult = (e: any) => {
       const transcript = e.results[0][0].transcript.trim();
       if (!transcript) return;
       if (onTranscript) {
@@ -3494,7 +3494,7 @@ export default function ChatWidget() {
         setTimeout(() => inputRef.current?.focus({ preventScroll: true }), 50);
       }
     };
-    rec.onerror = (e: SpeechRecognitionErrorEvent) => {
+    rec.onerror = (e: any) => {
       if (e.error !== "no-speech" && e.error !== "aborted") console.warn("STT:", e.error);
       setIsListening(false); setVoiceStatus("Tap the mic to speak");
     };
