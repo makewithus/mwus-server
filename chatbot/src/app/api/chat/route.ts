@@ -21,7 +21,7 @@ function retrieveContext(userMessage: string): string {
       q.includes("offer")
     ) {
       parts.push(
-        `Service: ${service.name} — ${service.description}`
+        `Service: ${service.name}`
       );
     }
   }
