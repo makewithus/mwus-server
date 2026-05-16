@@ -3246,9 +3246,9 @@ import LeadForm from "./LeadForm";
 interface Message { role: "user" | "assistant"; content: string; }
 type Screen = "home" | "chat" | "voice" | "call";
 
-const WHATSAPP_NUMBER = "916395428620";
-const PHONE_NUMBER    = "+91 63954 28620";
-const PHONE_DIALABLE  = "916395428620";
+const WHATSAPP_NUMBER = "918838514202";
+const PHONE_NUMBER    = "+91 88385 14202";
+const PHONE_DIALABLE  = "918838514202";
 const WHATSAPP_BASE   = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent("Hi! I found you through MakeWithUs and I'd like to know more.")}`;
 const F               = "'Inter','Segoe UI',system-ui,-apple-system,Arial,sans-serif";
 

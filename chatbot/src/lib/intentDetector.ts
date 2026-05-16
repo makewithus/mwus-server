@@ -1,28 +1,87 @@
 export type Intent = "info" | "pricing" | "service" | "lead";
 
 const INTENT_PATTERNS: Record<Intent, string[]> = {
-  info: [
-    "what is", "who are", "about", "tell me", "explain",
-    "how does", "what do you", "your company", "makewithus",
-    "portfolio", "projects", "examples", "case study"
+    info: [
+    "what is",
+    "who are",
+    "about",
+    "tell me",
+    "explain",
+    "how does",
+    "what do you do",
+    "your company",
+    "makewithus",
+    "portfolio",
+    "projects",
+    "examples",
+    "case study",
+    "services"
   ],
+
   pricing: [
-    "price", "cost", "how much", "pricing", "fee", "charge",
-    "plan", "starter", "pro", "budget", "afford", "expensive",
-    "cheap", "rate", "quote", "₹", "$", "payment", "subscription"
+    "price",
+    "cost",
+    "how much",
+    "pricing",
+    "fee",
+    "charge",
+    "budget",
+    "quote",
+    "estimate",
+    "₹",
+    "$",
+    "minimum budget",
+    "payment",
+    "website cost",
+    "app cost",
+    "seo pricing",
+    "design cost"
   ],
+
   service: [
-    "website", "web", "app", "mobile", "design", "develop",
-    "build", "create", "make", "ecommerce", "seo", "ui", "ux",
-    "store", "shop", "landing page", "portfolio site", "dashboard"
+    "website",
+    "web",
+    "landing page",
+    "app",
+    "mobile app",
+    "application",
+    "design",
+    "ui",
+    "ux",
+    "graphic design",
+    "develop",
+    "build",
+    "create",
+    "ecommerce",
+    "shopify",
+    "seo",
+    "dashboard",
+    "backend",
+    "enterprise system"
   ],
+
   lead: [
-    "get started", "start", "contact", "reach out", "hire",
-    "work with", "interested", "book", "schedule", "call",
-    "want to", "let's go", "sign up", "ready", "when can",
-    "how do i begin", "next step"
+    "get started",
+    "start",
+    "contact",
+    "reach out",
+    "hire",
+    "work with",
+    "interested",
+    "book",
+    "schedule",
+    "call",
+    "want to build",
+    "need a website",
+    "need an app",
+    "let's work",
+    "ready",
+    "next step",
+    "want a quote",
+    "how do i begin"
   ]
 };
+
 
 export function detectIntent(message: string): Intent {
   const lower = message.toLowerCase();

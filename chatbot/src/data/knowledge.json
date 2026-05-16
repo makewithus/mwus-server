@@ -2,104 +2,149 @@
   "company": {
     "name": "MakeWithUs",
     "tagline": "Build websites and apps that grow your business",
-    "description": "MakeWithUs is a digital product studio that builds custom websites, web apps, and mobile apps for entrepreneurs, startups, and growing businesses.",
-    "founded": "India-based, serving global clients",
+    "description": "We are a service-based technology company focused on delivering cost-effective digital solutions for startups, small businesses, and enterprises. We provide website development, application development, UI/UX design, SEO services, and enterprise software solutions tailored to client requirements and budget.",
+
+    "approaches": [
+      "Budget-friendly solutions for growing businesses",
+      "Scalable architecture for future expansion",
+      "Modern UI/UX design",
+      "Custom development based on client needs",
+      "Long-term technical support and maintenance"
+    ],
+
     "contact": {
-      "whatsapp": "919999999999",
-      "phone": "+91 99999 99999",
+      "whatsapp": "918838514202",
+      "phone": "+91 8838514202",
       "email": "hello@makewithus.in"
     }
   },
 
   "services": [
     {
-      "name": "Web Design",
-      "description": "Beautiful, conversion-focused website designs. We design for real users, not just aesthetics.",
-      "ideal_for": "Businesses that need a fresh, modern online presence",
-      "timeline": "1-2 weeks"
+      "name": "Static Website / Landing Page Development",
+      "starting_price": {
+        "minimum_budget": "₹30,000",
+        "international_clients": "$1,000"
+      },
+      "includes": [
+        "Responsive design",
+        "Basic SEO setup",
+        "Contact forms",
+        "Mobile optimization",
+        "Deployment support",
+        "Modern UI design"
+      ]
     },
-    {
-      "name": "Web Development",
-      "description": "Custom websites built with Next.js, React, and modern tech. Fast, SEO-ready, and scalable.",
-      "ideal_for": "Startups and businesses needing custom functionality",
-      "timeline": "2-4 weeks"
-    },
-    {
-      "name": "App Development",
-      "description": "Mobile and web apps built from scratch. iOS, Android, and cross-platform.",
-      "ideal_for": "Founders with a product idea that needs to be built",
-      "timeline": "4-8 weeks"
-    },
-    {
-      "name": "E-commerce",
-      "description": "Online stores that sell. Shopify, custom carts, payment integration, and inventory.",
-      "ideal_for": "Brands wanting to sell products online",
-      "timeline": "2-3 weeks"
-    },
-    {
-      "name": "SEO",
-      "description": "Get found on Google. On-page SEO, technical SEO, and content strategy.",
-      "ideal_for": "Businesses wanting organic growth",
-      "timeline": "Ongoing monthly"
-    },
-    {
-      "name": "UI/UX Design",
-      "description": "User research, wireframes, and high-fidelity prototypes in Figma.",
-      "ideal_for": "Teams building products who need design leadership",
-      "timeline": "1-3 weeks"
-    }
-  ],
 
-  "pricing": [
     {
-      "plan": "Starter",
-      "price": "₹9/month",
-      "best_for": "Small-scale projects and entrepreneurs",
-      "includes": ["Basic website", "Mobile responsive", "1 revision round", "Email support"]
+      "name": "Application Development",
+      "starting_price": {
+        "minimum_budget": "₹1,50,000"
+      },
+      "includes": [
+        "Custom backend development",
+        "API integration",
+        "Database design",
+        "Authentication systems",
+        "Role-based access",
+        "Cloud deployment"
+      ]
     },
+
     {
-      "plan": "Pro",
-      "price": "₹49/month",
-      "best_for": "Established businesses and ambitious projects",
-      "includes": ["Custom design", "Advanced features", "Priority support", "3 revision rounds", "Analytics setup"]
+      "name": "Enterprise-Level Systems",
+      "pricing": "Direct negotiation based on project scope"
     },
+
     {
-      "note": "Annual plans get 20% discount. Custom project pricing available on request."
+      "name": "UI/UX & Graphic Design",
+      "starting_price": {
+        "ui_design": "₹25,000",
+        "includes": "Up to 7 screens"
+      },
+      "services_include": [
+        "Mobile app UI",
+        "Web app UI",
+        "Dashboard design",
+        "Wireframes",
+        "Interactive prototypes",
+        "Branding assets",
+        "Social media creatives"
+      ]
+    },
+
+    {
+      "name": "SEO Services",
+      "pricing": {
+        "depends_on": [
+          "Target keywords",
+          "Industry competition",
+          "Website size",
+          "Monthly goals",
+          "Local or international targeting"
+        ]
+      },
+      "includes": [
+        "On-page SEO",
+        "Technical SEO",
+        "Speed optimization",
+        "Keyword research",
+        "Content optimization",
+        "Google indexing setup",
+        "Analytics integration"
+      ]
     }
   ],
 
   "process": [
-    { "step": 1, "name": "Discovery call", "description": "We understand your goals, audience, and requirements." },
-    { "step": 2, "name": "Proposal", "description": "We send a clear scope, timeline, and cost." },
-    { "step": 3, "name": "Design", "description": "UI/UX wireframes and design approval." },
-    { "step": 4, "name": "Build", "description": "Development with weekly check-ins." },
-    { "step": 5, "name": "Launch", "description": "We deploy, test, and hand over the keys." },
-    { "step": 6, "name": "Support", "description": "Ongoing support available on all plans." }
+    {
+      "step": 1,
+      "name": "Discovery Call",
+      "description": "We understand your goals, audience, and requirements."
+    },
+    {
+      "step": 2,
+      "name": "Proposal",
+      "description": "We send a clear scope, timeline, and cost."
+    },
+    {
+      "step": 3,
+      "name": "Design",
+      "description": "UI/UX wireframes and design approval."
+    },
+    {
+      "step": 4,
+      "name": "Build",
+      "description": "Development with weekly check-ins."
+    },
+    {
+      "step": 5,
+      "name": "Launch",
+      "description": "We deploy, test, and hand over the keys."
+    },
+    {
+      "step": 6,
+      "name": "Support",
+      "description": "Ongoing support available on all plans."
+    }
   ],
 
   "projects": [
     {
-      "type": "E-commerce store",
-      "description": "Built a full Shopify store for a fashion brand. 3x conversion rate improvement.",
-      "tech": "Shopify, custom theme"
+      "name": "New Diamond Interior",
+      "type": "Business Website"
     },
     {
-      "type": "SaaS dashboard",
-      "description": "Built an analytics dashboard for a B2B SaaS startup.",
-      "tech": "Next.js, Tailwind, Supabase"
+      "name": "Ritual",
+      "type": "Health Care"
     },
     {
-      "type": "Portfolio website",
-      "description": "Designed and built a portfolio for a creative agency.",
-      "tech": "Next.js, Framer Motion"
+      "name": "Bichikat",
+      "type": "Shopify"
     }
   ],
 
   "faqs": [
-    {
-      "q": "How long does a website take?",
-      "a": "Simple websites take 1-2 weeks. Custom web apps take 4-8 weeks. We'll give you an exact timeline after the discovery call."
-    },
     {
       "q": "Do you work with startups?",
       "a": "Yes! We love working with early-stage founders. We've helped many go from idea to live product."
