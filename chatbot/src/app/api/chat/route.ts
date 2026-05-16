@@ -1,4 +1,3 @@
-
 import { NextRequest } from "next/server";
 import { detectIntent, getIntentInstruction } from "@/lib/intentDetector";
 import knowledge from "@/data/knowledge.json";
@@ -6,7 +5,6 @@ import knowledge from "@/data/knowledge.json";
 const OPENROUTER_URL =
   "https://openrouter.ai/api/v1/chat/completions";
 
-// WORKING FREE MODEL
 const MODEL = "openai/gpt-4o-mini";
 
 // ── Context retrieval ─────────────────────────────────────────
@@ -14,66 +12,135 @@ function retrieveContext(userMessage: string): string {
   const q = userMessage.toLowerCase();
   const parts: string[] = [];
 
+  // SERVICES
   for (const service of knowledge.services) {
     if (
       q.includes(service.name.toLowerCase()) ||
       q.includes("service") ||
       q.includes("offer")
     ) {
-      parts.push(
-        `Service: ${service.name}`
-      );
+      let serviceText = `Service: ${service.name}`;
+
+      // starting price
+      if ("starting_price" in service) {
+        serviceText += ` | Starting Price: ${JSON.stringify(
+          service.starting_price
+        )}`;
+      }
+
+      // pricing
+      if ("pricing" in service) {
+        serviceText += ` | Pricing: ${JSON.stringify(
+          service.pricing
+        )}`;
+      }
+
+      // includes
+      if (
+        "includes" in service &&
+        Array.isArray(service.includes)
+      ) {
+        serviceText += ` | Includes: ${service.includes.join(
+          ", "
+        )}`;
+      }
+
+      // services_include
+      if (
+        "services_include" in service &&
+        Array.isArray(service.services_include)
+      ) {
+        serviceText += ` | Services: ${service.services_include.join(
+          ", "
+        )}`;
+      }
+
+      parts.push(serviceText);
     }
   }
 
+  // PRICING QUESTIONS
   if (
     q.includes("price") ||
     q.includes("cost") ||
-    q.includes("plan") ||
+    q.includes("pricing") ||
     q.includes("how much") ||
+    q.includes("budget") ||
     q.includes("₹")
   ) {
-    for (const plan of knowledge.pricing) {
-      if ("plan" in plan) {
-        parts.push(
-          `Plan: ${plan.plan} — ${plan.price}. Includes: ${(plan.includes ?? []).join(", ")}.`
-        );
-      }
-    }
+    for (const service of knowledge.services) {
+      let pricingText = `${service.name}: `;
 
-    parts.push("Annual plans get 20% discount.");
+      if ("starting_price" in service) {
+        pricingText += JSON.stringify(
+          service.starting_price
+        );
+      } else if ("pricing" in service) {
+        pricingText += JSON.stringify(
+          service.pricing
+        );
+      } else {
+        pricingText += "Pricing available on request.";
+      }
+
+      parts.push(pricingText);
+    }
   }
 
+  // PROCESS
   if (
     q.includes("process") ||
     q.includes("how") ||
     q.includes("start") ||
     q.includes("begin")
   ) {
-    parts.push(
-      "Process: 1.Discovery → 2.Proposal → 3.Design → 4.Build → 5.Launch → 6.Support"
-    );
+    const processText = knowledge.process
+      .map((step) => `${step.step}. ${step.name}`)
+      .join(" → ");
+
+    parts.push(`Process: ${processText}`);
   }
 
+  // PROJECTS / PORTFOLIO
   if (
     q.includes("project") ||
     q.includes("portfolio") ||
-    q.includes("example")
+    q.includes("example") ||
+    q.includes("work")
   ) {
     for (const p of knowledge.projects) {
-      parts.push(`Built: ${p.type} — ${p.description}`);
+      parts.push(
+        `Project: ${p.name} (${p.type})`
+      );
     }
   }
 
+  // FAQS
+  if (
+    q.includes("refund") ||
+    q.includes("startup") ||
+    q.includes("design") ||
+    q.includes("portfolio")
+  ) {
+    for (const faq of knowledge.faqs) {
+      parts.push(`Q: ${faq.q} A: ${faq.a}`);
+    }
+  }
+
+  // DEFAULT CONTEXT
   if (parts.length === 0) {
     parts.push(
-      `MakeWithUs builds websites, web apps & mobile apps. Services: ${knowledge.services
+      `${knowledge.company.name} helps businesses with website development, app development, UI/UX, SEO, and enterprise systems.`
+    );
+
+    parts.push(
+      `Services: ${knowledge.services
         .map((s) => s.name)
-        .join(", ")}. Pricing from ₹50/month.`
+        .join(", ")}`
     );
   }
 
-  return parts.slice(0, 2).join("\n");
+  return parts.slice(0, 4).join("\n");
 }
 
 const SYSTEM_PROMPT = `
@@ -84,7 +151,8 @@ RULES:
 2. No bullet points.
 3. No filler text.
 4. End with one short question.
-5. Only discuss services, pricing, or project needs.
+5. Only discuss services, pricing, process, or project needs.
+6. Answer using company knowledge only.
 `;
 
 export async function POST(req: NextRequest) {
@@ -101,7 +169,10 @@ export async function POST(req: NextRequest) {
 
     const lastUser = [...messages]
       .reverse()
-      .find((m: { role: string }) => m.role === "user");
+      .find(
+        (m: { role: string }) =>
+          m.role === "user"
+      );
 
     if (!lastUser) {
       return Response.json(
@@ -110,25 +181,30 @@ export async function POST(req: NextRequest) {
       );
     }
 
-    const apiKey = process.env.OPENROUTER_API_KEY;
+    const apiKey =
+      process.env.OPENROUTER_API_KEY;
 
     if (!apiKey) {
       return Response.json(
         {
           error:
-            "OPENROUTER_API_KEY missing in .env.local",
+            "OPENROUTER_API_KEY missing",
         },
         { status: 500 }
       );
     }
 
-    const intent = detectIntent(lastUser.content);
+    const intent = detectIntent(
+      lastUser.content
+    );
 
     const intentInstruction =
       getIntentInstruction(intent);
 
     const context =
-      retrieveContext(lastUser.content);
+      retrieveContext(
+        lastUser.content
+      );
 
     const fullSystemPrompt = `
 ${SYSTEM_PROMPT}
@@ -157,13 +233,10 @@ ${intentInstruction}
             m.role === "assistant"
               ? "assistant"
               : "user",
-
           content: m.content,
         })
       ),
     ];
-
-    // ── OPENROUTER API CALL ─────────────────────────
 
     const apiRes = await fetch(
       OPENROUTER_URL,
@@ -177,7 +250,7 @@ ${intentInstruction}
           Authorization: `Bearer ${apiKey}`,
 
           "HTTP-Referer":
-            "http://localhost:3000",
+            "https://makewithus.in",
 
           "X-Title":
             "MakeWithUs AI",
@@ -185,19 +258,13 @@ ${intentInstruction}
 
         body: JSON.stringify({
           model: MODEL,
-
           messages: apiMessages,
-
           stream: false,
-
           temperature: 0.6,
-
           max_tokens: 120,
         }),
       }
     );
-
-    // ── HANDLE API ERRORS ─────────────────────────
 
     if (!apiRes.ok) {
       const errText =
@@ -209,16 +276,13 @@ ${intentInstruction}
       );
 
       return Response.json(
-        {
-          error: errText,
-        },
+        { error: errText },
         { status: 500 }
       );
     }
 
-    // ── NORMAL JSON RESPONSE ──────────────────────
-
-    const data = await apiRes.json();
+    const data =
+      await apiRes.json();
 
     const reply =
       data?.choices?.[0]?.message
