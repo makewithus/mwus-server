@@ -966,7 +966,7 @@ export default function ChatWidget() {
       }
     };
 
-    rec.onerror = (e: SpeechRecognitionErrorEvent) => {
+    rec.onerror = (e: any) => {
       if (e.error !== "no-speech" && e.error !== "aborted") {
         console.warn("Speech recognition error:", e.error);
       }
