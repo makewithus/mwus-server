@@ -1073,6 +1073,45 @@
 	<script type="text/javascript">gsap.registerPlugin(Flip, ScrollTrigger, CustomEase);</script>
 	<script
 		src="https://cdn.prod.website-files.com/669f31da6bffdf98a45d622a/66a21260a3585ac934002b64_SplitText.min.txt"></script>
+<script>
+(function () {
+  const iframe = document.createElement("iframe");
+
+  iframe.src = "https://mwus-server-ozjd.vercel.app/";
+  iframe.allow = "microphone; autoplay";
+  iframe.id = "mwus-widget";
+
+  function setWidgetStyle() {
+    const isMobile = window.innerWidth < 768;
+
+    iframe.style.cssText = `
+      position: fixed;
+      bottom: ${isMobile ? "10px" : "20px"};
+      right: ${isMobile ? "10px" : "20px"};
+
+      /* iframe bigger so X button can sit outside */
+      width: ${isMobile ? "420px" : "380px"};
+      height: ${isMobile ? "700px" : "620px"};
+
+      border: none;
+      z-index: 999999;
+      background: transparent;
+      border-radius: 30px;
+
+      /* IMPORTANT */
+      overflow: visible;
+
+      pointer-events: auto;
+      box-shadow: none;
+    `;
+  }
+
+  setWidgetStyle();
+  window.addEventListener("resize", setWidgetStyle);
+
+  document.body.appendChild(iframe);
+})();
+</script>
 
 </body>
 
