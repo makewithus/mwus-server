@@ -896,7 +896,7 @@ export default function ChatWidget() {
       };
 
 
-      utt.onerror = (e: SpeechSynthesisErrorEvent) => {
+      utt.onerror = (e: any) => {
         // 'interrupted' is not a real error — it happens when cancel() is called
         // We suppress it silently
         if (e.error === "interrupted" || e.error === "canceled") {
@@ -955,7 +955,7 @@ export default function ChatWidget() {
       setVoiceStatus("Listening...");
     };
 
-    rec.onresult = (e: SpeechRecognitionEvent) => {
+    rec.onresult = (e: any) => {
       const transcript = e.results[0][0].transcript.trim();
       if (!transcript) return;
       if (onTranscript) {
