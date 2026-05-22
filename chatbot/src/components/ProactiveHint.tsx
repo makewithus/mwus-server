@@ -45,7 +45,7 @@ export default function ProactiveHint({ onOpen }: ProactiveHintProps) {
 
   return (
     <div style={{
-      position: "fixed", bottom: "96px", right: "86px", zIndex: 9996,
+      position: "fixed", bottom: "82px", right: "18px", zIndex: 9996,
       display: "flex", alignItems: "center",
       animation: "hintSlideIn 0.4s ease-out",
       fontFamily: "'Inter','Segoe UI',system-ui,-apple-system,Arial,sans-serif"
@@ -53,18 +53,18 @@ export default function ProactiveHint({ onOpen }: ProactiveHintProps) {
       <div
         onClick={() => { setVisible(false); onOpen(); }}
         style={{
-          background: "#1a1a2e",
-          border: "1px solid rgba(124,58,237,0.4)",
+          background: "#000",
+          border: "1px solid rgba(255,255,255,0.08)",
           borderRadius: "12px 12px 0 15px",
           padding: "10px 14px", cursor: "pointer", maxWidth: "220px",
-          boxShadow: "0 4px 20px rgba(0,0,0,0.3)",
+          boxShadow: "none",
           
         }}
       >
         <p style={{ margin: 0, fontSize: "13px", color: "rgba(255,255,255,0.9)", lineHeight: 1.5, fontFamily: "inherit" }}>
           {hint}
         </p>
-        <p style={{ margin: "4px 0 0", fontSize: "11px", color: "#8b5cf6", fontFamily: "'Inter','Segoe UI',system-ui,-apple-system,Arial,sans-serif"}}>
+        <p style={{ margin: "4px 0 0", fontSize: "11px", color: "#EF4444", fontFamily: "'Inter','Segoe UI',system-ui,-apple-system,Arial,sans-serif"}}>
           Tap to chat
         </p>
       </div>
