@@ -45,7 +45,7 @@ export default function ProactiveHint({ onOpen }: ProactiveHintProps) {
 
   return (
     <div style={{
-      position: "fixed", bottom: "82px", right: "18px", zIndex: 9996,
+      position: "fixed", bottom: "85px", right: "18px", zIndex: 9996,
       display: "flex", alignItems: "center",
       animation: "hintSlideIn 0.4s ease-out",
       fontFamily: "'Inter','Segoe UI',system-ui,-apple-system,Arial,sans-serif"
