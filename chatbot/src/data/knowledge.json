@@ -1,0 +1,165 @@
+{
+  "company": {
+    "name": "MakeWithUs",
+    "tagline": "Build websites and apps that grow your business",
+    "description": "We are a service-based technology company focused on delivering cost-effective digital solutions for startups, small businesses, and enterprises. We provide website development, application development, UI/UX design, SEO services, and enterprise software solutions tailored to client requirements and budget.",
+
+    "approaches": [
+      "Budget-friendly solutions for growing businesses",
+      "Scalable architecture for future expansion",
+      "Modern UI/UX design",
+      "Custom development based on client needs",
+      "Long-term technical support and maintenance"
+    ],
+
+    "contact": {
+      "whatsapp": "918838514202",
+      "phone": "+91 8838514202",
+      "email": "hello@makewithus.in"
+    }
+  },
+
+  "services": [
+    {
+      "name": "Static Website / Landing Page Development",
+      "starting_price": {
+        "minimum_budget": "₹30,000",
+        "international_clients": "$1,000"
+      },
+      "includes": [
+        "Responsive design",
+        "Basic SEO setup",
+        "Contact forms",
+        "Mobile optimization",
+        "Deployment support",
+        "Modern UI design"
+      ]
+    },
+
+    {
+      "name": "Application Development",
+      "starting_price": {
+        "minimum_budget": "₹1,50,000"
+      },
+      "includes": [
+        "Custom backend development",
+        "API integration",
+        "Database design",
+        "Authentication systems",
+        "Role-based access",
+        "Cloud deployment"
+      ]
+    },
+
+    {
+      "name": "Enterprise-Level Systems",
+      "pricing": "Direct negotiation based on project scope"
+    },
+
+    {
+      "name": "UI/UX & Graphic Design",
+      "starting_price": {
+        "ui_design": "₹25,000",
+        "includes": "Up to 7 screens"
+      },
+      "services_include": [
+        "Mobile app UI",
+        "Web app UI",
+        "Dashboard design",
+        "Wireframes",
+        "Interactive prototypes",
+        "Branding assets",
+        "Social media creatives"
+      ]
+    },
+
+    {
+      "name": "SEO Services",
+      "pricing": {
+        "depends_on": [
+          "Target keywords",
+          "Industry competition",
+          "Website size",
+          "Monthly goals",
+          "Local or international targeting"
+        ]
+      },
+      "includes": [
+        "On-page SEO",
+        "Technical SEO",
+        "Speed optimization",
+        "Keyword research",
+        "Content optimization",
+        "Google indexing setup",
+        "Analytics integration"
+      ]
+    }
+  ],
+
+  "process": [
+    {
+      "step": 1,
+      "name": "Discovery Call",
+      "description": "We understand your goals, audience, and requirements."
+    },
+    {
+      "step": 2,
+      "name": "Proposal",
+      "description": "We send a clear scope, timeline, and cost."
+    },
+    {
+      "step": 3,
+      "name": "Design",
+      "description": "UI/UX wireframes and design approval."
+    },
+    {
+      "step": 4,
+      "name": "Build",
+      "description": "Development with weekly check-ins."
+    },
+    {
+      "step": 5,
+      "name": "Launch",
+      "description": "We deploy, test, and hand over the keys."
+    },
+    {
+      "step": 6,
+      "name": "Support",
+      "description": "Ongoing support available on all plans."
+    }
+  ],
+
+  "projects": [
+    {
+      "name": "New Diamond Interior",
+      "type": "Business Website"
+    },
+    {
+      "name": "Ritual",
+      "type": "Health Care"
+    },
+    {
+      "name": "Bichikat",
+      "type": "Shopify"
+    }
+  ],
+
+  "faqs": [
+    {
+      "q": "Do you work with startups?",
+      "a": "Yes! We love working with early-stage founders. We've helped many go from idea to live product."
+    },
+    {
+      "q": "Can I see examples of your work?",
+      "a": "Yes, we have a portfolio section on the website. You can also ask us directly on WhatsApp for case studies."
+    },
+    {
+      "q": "What if I don't have a design?",
+      "a": "No problem. We handle everything from scratch — design, development, and launch."
+    },
+    {
+      "q": "Do you offer refunds?",
+      "a": "We offer a revision-based process so you're always happy before we finalise. Contact us to discuss specific concerns."
+    }
+  ]
+}
