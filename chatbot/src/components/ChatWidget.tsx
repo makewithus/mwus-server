@@ -1140,17 +1140,6 @@ export default function ChatWidget() {
         <button onClick={() => { stopListening(); stopSpeakingNow(); if (timerRef.current) clearInterval(timerRef.current); setScreen("home"); }}
           style={{ background: "rgba(255,255,255,0.2)", border: "none", color: "#fff", width: "28px", height: "28px", borderRadius: "50%", cursor: "pointer", display: "flex", alignItems: "center", justifyContent: "center", fontSize: "14px", fontFamily: F, flexShrink: 0 }}>←</button>
         <div style={{ width: "36px", height: "36px", borderRadius: "50%", background: "rgba(255,255,255,0.2)", display: "flex", alignItems: "center", justifyContent: "center", fontSize: "16px", color: "#fff", flexShrink: 0 }}>
-<<<<<<< HEAD
-          <img
-      src="/logo.png"
-      alt="MWUS Logo"
-      style={{
-        width: "28px",
-        height: "28px",
-        objectFit: "contain",
-      }}
-    />
-=======
            <img
     src="/logo.png"
     alt="MWUS Logo"
@@ -1160,7 +1149,6 @@ export default function ChatWidget() {
       objectFit: "contain"
     }}
   />
->>>>>>> a71ec54 (updated text)
         </div>
         <div>
           <p style={{ margin: 0, color: "#fff", fontWeight: 600, fontSize: "14px", fontFamily: F }}>{title}</p>
@@ -1189,17 +1177,6 @@ export default function ChatWidget() {
         <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: "16px" }}>
           <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
             <div style={{ width: "42px", height: "42px", borderRadius: "50%", background: "rgba(255,255,255,0.2)", display: "flex", alignItems: "center", justifyContent: "center", fontSize: "20px", color: "#fff" }}>
-<<<<<<< HEAD
-              <img
-      src="/logo.png"
-      alt="MWUS Logo"
-      style={{
-        width: "28px",
-        height: "28px",
-        objectFit: "contain",
-      }}
-    />
-=======
                    <img
     src="/logo.png"
     alt="MWUS Logo"
@@ -1209,7 +1186,6 @@ export default function ChatWidget() {
       objectFit: "contain"
     }}
   />
->>>>>>> a71ec54 (updated text)
             </div>
             <p style={{ margin: 0, color: "#fff", fontWeight: 600, fontSize: "16px", fontFamily: F }}>makewithus AI</p>
           </div>
@@ -1274,17 +1250,6 @@ export default function ChatWidget() {
         {messages.length === 0 && (
           <div style={{ display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", height: "100%", gap: "11px" }}>
             <div style={{ width: "54px", height: "54px", borderRadius: "50%", background: `linear-gradient(135deg,${C.accent},${C.accentL})`, display: "flex", alignItems: "center", justifyContent: "center", fontSize: "24px", color: "#fff" }}>
-<<<<<<< HEAD
-              <img
-      src="/logo.png"
-      alt="MWUS Logo"
-      style={{
-        width: "28px",
-        height: "28px",
-        objectFit: "contain",
-      }}
-    />
-=======
                    <img
     src="/logo.png"
     alt="MWUS Logo"
@@ -1294,7 +1259,6 @@ export default function ChatWidget() {
       objectFit: "contain"
     }}
   />
->>>>>>> a71ec54 (updated text)
             </div>
             {/* FIX ISSUE 2: Font explicitly set on ALL welcome text — was missing fontFamily on some elements */}
             <p style={{ margin: 0, fontSize: "15px", fontWeight: 600, color: C.white, fontFamily: F }}>Hey! How can I help you?</p>
@@ -1317,17 +1281,6 @@ export default function ChatWidget() {
           <div key={i} style={{ display: "flex", justifyContent: msg.role === "user" ? "flex-end" : "flex-start" }}>
             {msg.role === "assistant" && (
               <div style={{ width: "28px", height: "28px", borderRadius: "50%", background: `linear-gradient(135deg,${C.accent},${C.accentL})`, display: "flex", alignItems: "center", justifyContent: "center", fontSize: "12px", color: "#fff", flexShrink: 0, marginRight: "8px", marginTop: "2px" }}>
-<<<<<<< HEAD
-                <img
-      src="/logo.png"
-      alt="MWUS Logo"
-      style={{
-        width: "28px",
-        height: "28px",
-        objectFit: "contain",
-      }}
-    />
-=======
                      <img
     src="/logo.png"
     alt="MWUS Logo"
@@ -1337,7 +1290,6 @@ export default function ChatWidget() {
       objectFit: "contain"
     }}
   />
->>>>>>> a71ec54 (updated text)
               </div>
             )}
             <div style={{ maxWidth: "78%", padding: "10px 14px", borderRadius: msg.role === "user" ? "14px 14px 3px 14px" : "14px 14px 14px 3px", background: msg.role === "user" ? `linear-gradient(135deg,${C.accent},${C.accentL})` : C.surface, color: msg.role === "user" ? "#fff" : C.text, fontSize: "13px", lineHeight: "1.65", fontFamily: F, border: msg.role === "assistant" ? `1px solid ${C.border}` : "none", whiteSpace: "pre-wrap" }}>
@@ -1348,17 +1300,6 @@ export default function ChatWidget() {
 
         {isTyping && (
           <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
-<<<<<<< HEAD
-            <div style={{ width: "28px", height: "28px", borderRadius: "50%", background: `linear-gradient(135deg,${C.accent},${C.accentL})`, display: "flex", alignItems: "center", justifyContent: "center", fontSize: "12px", color: "#fff", flexShrink: 0 }}><img
-      src="/logo.png"
-      alt="MWUS Logo"
-      style={{
-        width: "28px",
-        height: "28px",
-        objectFit: "contain",
-      }}
-    /></div>
-=======
             <div style={{ width: "28px", height: "28px", borderRadius: "50%", background: `linear-gradient(135deg,${C.accent},${C.accentL})`, display: "flex", alignItems: "center", justifyContent: "center", fontSize: "12px", color: "#fff", flexShrink: 0 }}></div>
                  <img
     src="/logo.png"
@@ -1369,7 +1310,6 @@ export default function ChatWidget() {
       objectFit: "contain"
     }}
   />
->>>>>>> a71ec54 (updated text)
             <div style={{ padding: "10px 14px", borderRadius: "14px 14px 14px 3px", background: C.surface, border: `1px solid ${C.border}`, display: "flex", gap: "4px", alignItems: "center" }}>
               {[0,1,2].map(n => <span key={n} style={{ width: "6px", height: "6px", borderRadius: "50%", background: C.accentL, display: "inline-block", animation: `mwuBounce 1.2s ease-in-out ${n*0.2}s infinite` }}/>)}
             </div>
@@ -1661,25 +1601,6 @@ export default function ChatWidget() {
 
       {/* Launcher button */}
       <button onClick={isOpen ? closeWidget : openWidget} aria-label="Toggle chat"
-<<<<<<< HEAD
-        style={{ position: "fixed", bottom: "24px", right: "24px", zIndex: 9999, width: "56px", height: "56px", borderRadius: "50%", background: `linear-gradient(135deg,${C.accent},${C.accentL})`, border: "none", cursor: "pointer", display: "flex", alignItems: "center", justifyContent: "center", boxShadow: "0 4px 20px rgba(225,225,225,0.08)", transition: "transform 0.2s", fontSize: "22px", color: "#fff", fontFamily: F }}
-        onMouseEnter={e => ((e.currentTarget as HTMLButtonElement).style.transform = "scale(1.08)")}
-        onMouseLeave={e => ((e.currentTarget as HTMLButtonElement).style.transform = "scale(1)")}>
-         {isOpen ? (
-    "✕"
-  ) : (
-    <img
-      src="/logo.png"
-      alt="MWUS Logo"
-      style={{
-        width: "28px",
-        height: "28px",
-        objectFit: "contain",
-      }}
-    />
-  )}
-</button>
-=======
         style={{ position: "fixed", bottom: "24px", right: "24px", zIndex: 9999, width: "56px", height: "56px", borderRadius: "50%", background: `linear-gradient(135deg,${C.accent},${C.accentL})`, border: "none", cursor: "pointer", display: "flex", alignItems: "center", justifyContent: "center", boxShadow: "0 4px 20px rgba(255, 255,255,0.8)", transition: "transform 0.2s", fontSize: "22px", color: "#fff", fontFamily: F }}
         onMouseEnter={e => ((e.currentTarget as HTMLButtonElement).style.transform = "scale(1.08)")}
         onMouseLeave={e => ((e.currentTarget as HTMLButtonElement).style.transform = "scale(1)")}>
@@ -1697,7 +1618,6 @@ export default function ChatWidget() {
   />
 )}
       </button>
->>>>>>> a71ec54 (updated text)
 
       {/* Widget window — responsive: full screen on mobile, floating on desktop */}
       {isOpen && (
