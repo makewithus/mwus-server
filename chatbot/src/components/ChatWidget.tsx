@@ -1554,10 +1554,11 @@ export default function ChatWidget() {
           fontFamily:    F,
           position:      "fixed",
           zIndex:        9998,
-          background:    C.bg,
-          border:        `1px solid ${C.border}`,
+         background: "transparent",
+border: "none",
+boxShadow: "none",
           overflow:      "hidden",
-          boxShadow:     "none",
+      
           display:       "flex",
           flexDirection: "column",
           // ── Mobile (≤480px): full screen ──
