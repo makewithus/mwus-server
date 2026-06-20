@@ -1,0 +1,11 @@
+{
+  "buildCommand": null,
+  "outputDirectory": ".",
+  "framework": null,
+  "rewrites": [
+    {
+      "source": "/ems/:path*",
+      "destination": "https://YOUR_EMS_VERCEL_URL.vercel.app/ems/:path*"
+    }
+  ]
+}

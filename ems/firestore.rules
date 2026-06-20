@@ -1,0 +1,185 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // ── Helper: is user authenticated? ──────────────────────────────────
+    function isSignedIn() {
+      return request.auth != null;
+    }
+
+    // ── Helper: safe role check (returns null if profile missing) ────────
+    function userRole() {
+      return exists(/databases/$(database)/documents/users/$(request.auth.uid))
+        ? get(/databases/$(database)/documents/users/$(request.auth.uid)).data.role
+        : null;
+    }
+
+    // ── Role predicates ──────────────────────────────────────────────────
+    function isSuperAdmin() {
+      return isSignedIn() && userRole() == 'super_admin';
+    }
+
+    function isHRAdmin() {
+      return isSignedIn() && (userRole() == 'hr_admin' || userRole() == 'super_admin');
+    }
+
+    // Any signed-in user whose profile has the given employeeId field
+    function isOwnerById(employeeId) {
+      return isSignedIn()
+        && exists(/databases/$(database)/documents/users/$(request.auth.uid))
+        && get(/databases/$(database)/documents/users/$(request.auth.uid)).data.employeeId == employeeId;
+    }
+
+    // ── /users ───────────────────────────────────────────────────────────
+    match /users/{userId} {
+      // Super admin can do anything
+      allow read, write: if isSuperAdmin();
+      // User can read/update their own profile
+      allow read, update: if isSignedIn() && request.auth.uid == userId;
+      // HR admin can create new employee user profiles
+      allow create: if isHRAdmin();
+      // IMPORTANT: allow any signed-in user to create their own profile doc
+      // (handles the case where the admin has no Firestore profile yet, and
+      //  also covers the secondary-app employee creation flow)
+      allow create: if isSignedIn() && request.auth.uid == userId;
+      // Allow any authenticated user to create a user profile for a new employee
+      // This is needed when the admin creates employees (the doc userId != admin uid)
+      allow create: if isSignedIn();
+    }
+
+    // ── /companies ───────────────────────────────────────────────────────
+    match /companies/{companyId} {
+      allow read: if isSignedIn();
+      allow write: if isSuperAdmin();
+    }
+
+    // ── /employees ───────────────────────────────────────────────────────
+    match /employees/{employeeId} {
+      allow read:   if isHRAdmin() || (isSignedIn() && resource.data.uid == request.auth.uid);
+      allow create: if isHRAdmin() || isSignedIn(); // admin creates on behalf
+      allow update: if isHRAdmin() || (isSignedIn() && resource.data.uid == request.auth.uid);
+      allow delete: if isSuperAdmin();
+    }
+
+    // ── /departments ─────────────────────────────────────────────────────
+    match /departments/{deptId} {
+      allow read:  if isSignedIn();
+      allow write: if isHRAdmin();
+    }
+
+    // ── /attendance ──────────────────────────────────────────────────────
+    match /attendance/{attId} {
+      allow read:
+        if isHRAdmin()
+        || (isSignedIn()
+            && exists(/databases/$(database)/documents/users/$(request.auth.uid))
+            && resource.data.employeeId == get(/databases/$(database)/documents/users/$(request.auth.uid)).data.employeeId);
+      allow create, update: if isSignedIn();
+    }
+
+    // ── /leaveRequests ───────────────────────────────────────────────────
+    match /leaveRequests/{leaveId} {
+      allow read:
+        if isHRAdmin()
+        || (isSignedIn() && (
+              resource == null
+              || !exists(/databases/$(database)/documents/users/$(request.auth.uid))
+              || resource.data.employeeId == get(/databases/$(database)/documents/users/$(request.auth.uid)).data.employeeId
+           ));
+      allow create: if isSignedIn();
+      allow update:
+        if isHRAdmin()
+        || (isSignedIn()
+            && exists(/databases/$(database)/documents/users/$(request.auth.uid))
+            && resource.data.employeeId == get(/databases/$(database)/documents/users/$(request.auth.uid)).data.employeeId
+            && resource.data.status == 'Pending');
+    }
+
+    // ── /leaveBalances ───────────────────────────────────────────────────
+    match /leaveBalances/{balanceId} {
+      allow read:
+        if isHRAdmin()
+        || (isSignedIn()
+            && exists(/databases/$(database)/documents/users/$(request.auth.uid))
+            && resource.data.employeeId == get(/databases/$(database)/documents/users/$(request.auth.uid)).data.employeeId);
+      allow write: if isHRAdmin();
+    }
+
+    // ── /payroll ─────────────────────────────────────────────────────────
+    match /payroll/{payId} {
+      allow read, write: if isHRAdmin();
+    }
+
+    // ── /payslips ────────────────────────────────────────────────────────
+    match /payslips/{slipId} {
+      allow read:
+        if isHRAdmin()
+        || (isSignedIn()
+            && exists(/databases/$(database)/documents/users/$(request.auth.uid))
+            && resource.data.employeeId == get(/databases/$(database)/documents/users/$(request.auth.uid)).data.employeeId);
+      allow write: if isHRAdmin();
+    }
+
+    // ── /documents ───────────────────────────────────────────────────────
+    match /documents/{docId} {
+      allow read:
+        if isHRAdmin()
+        || (isSignedIn() && (
+              resource.data.visibility == 'Public'
+              || (exists(/databases/$(database)/documents/users/$(request.auth.uid))
+                  && resource.data.employeeId == get(/databases/$(database)/documents/users/$(request.auth.uid)).data.employeeId)
+           ));
+      allow write: if isHRAdmin();
+    }
+
+    // ── /folders ─────────────────────────────────────────────────────────
+    match /folders/{folderId} {
+      allow read:  if isSignedIn();
+      allow write: if isHRAdmin();
+    }
+
+    // ── /tasks ───────────────────────────────────────────────────────────
+    match /tasks/{taskId} {
+      // Employee can read if EITHER assignedTo OR assigneeId matches their UID
+      // (assignedTo is the canonical field; assigneeId is the legacy/alternate field)
+      allow read:
+        if isHRAdmin()
+        || (isSignedIn() && (
+              resource.data.assignedTo == request.auth.uid
+              || resource.data.assigneeId == request.auth.uid
+           ));
+      allow create: if isHRAdmin();
+      allow update:
+        if isHRAdmin()
+        || (isSignedIn() && (
+              resource.data.assignedTo == request.auth.uid
+              || resource.data.assigneeId == request.auth.uid
+           ));
+    }
+
+    // ── /notices ─────────────────────────────────────────────────────────
+    match /notices/{noticeId} {
+      allow read:  if isSignedIn();
+      allow create, delete: if isHRAdmin();
+      allow update: if isHRAdmin() || (isSignedIn() && request.resource.data.title == resource.data.title && request.resource.data.description == resource.data.description);
+    }
+
+    // ── /notifications ───────────────────────────────────────────────────
+    match /notifications/{notifId} {
+      allow read, update: if isSignedIn() && resource.data.userId == request.auth.uid;
+      allow create:       if isSignedIn();
+    }
+
+    // ── /settings ────────────────────────────────────────────────────────
+    match /settings/{settingId} {
+      allow read:  if isSignedIn();
+      allow write: if isHRAdmin();
+    }
+
+    // ── /activityLogs ────────────────────────────────────────────────────
+    match /activityLogs/{logId} {
+      allow read:   if isHRAdmin();
+      allow create: if isSignedIn();
+    }
+  }
+}

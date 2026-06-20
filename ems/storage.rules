@@ -1,0 +1,40 @@
+rules_version = '2';
+service firebase.storage {
+  match /b/{bucket}/o {
+    
+    function isSignedIn() {
+      return request.auth != null;
+    }
+    
+    function getRole() {
+      // Accessing custom claims or user roles path can be simulated,
+      // here we enforce authentication at baseline.
+      return request.auth.token.role;
+    }
+
+    match /documents/{allPaths=**} {
+      allow read: if isSignedIn();
+      allow write: if isSignedIn(); // HR Admin check can be added via custom token claims
+    }
+    
+    match /employees/{allPaths=**} {
+      allow read: if isSignedIn();
+      allow write: if isSignedIn();
+    }
+    
+    match /payslips/{allPaths=**} {
+      allow read: if isSignedIn() && (request.auth.uid == userId || getRole() == 'hr_admin' || getRole() == 'super_admin');
+      allow write: if isSignedIn() && (getRole() == 'hr_admin' || getRole() == 'super_admin');
+    }
+    
+    match /avatars/{userId} {
+      allow read: if isSignedIn();
+      allow write: if isSignedIn() && request.auth.uid == userId;
+    }
+    
+    match /company/{allPaths=**} {
+      allow read: if isSignedIn();
+      allow write: if isSignedIn();
+    }
+  }
+}
