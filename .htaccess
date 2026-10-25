@@ -1,0 +1,22 @@
+# Apache / cPanel / Hostinger: clean URLs (/about, /work/aupulens) and one canonical home (/)
+Options -MultiViews
+RewriteEngine On
+
+RewriteCond %{HTTPS} off [OR]
+RewriteCond %{HTTP_HOST} ^www\. [NC]
+RewriteRule ^ https://makewithus.in%{REQUEST_URI} [L,R=301]
+
+RewriteRule ^home/?$ / [L,R=301]
+RewriteCond %{THE_REQUEST} \s/+(.*?/)?index\.html?[\s?] [NC]
+RewriteRule ^ /%1 [L,R=301]
+RewriteCond %{THE_REQUEST} \s/+([^\s?]+)\.html?[\s?] [NC]
+RewriteRule ^ /%1 [L,R=301]
+
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME}.html -f
+RewriteRule ^(.+?)/?$ $1.html [L]
+
+RedirectMatch 404 ^/(donottouch|scratch|img|node_modules)(/|$)
+
+AddType image/webp .webp
+AddType application/manifest+json .webmanifest

@@ -1,0 +1,23 @@
+User-agent: *
+User-agent: Googlebot
+User-agent: Bingbot
+User-agent: GPTBot
+User-agent: OAI-SearchBot
+User-agent: ChatGPT-User
+User-agent: ClaudeBot
+User-agent: Claude-SearchBot
+User-agent: Claude-User
+User-agent: Claude-Web
+User-agent: PerplexityBot
+User-agent: Perplexity-User
+User-agent: Google-Extended
+User-agent: Applebot
+User-agent: Applebot-Extended
+User-agent: cohere-ai
+Allow: /
+Disallow: /donottouch/
+Disallow: /scratch/
+Disallow: /img/
+Disallow: /node_modules/
+
+Sitemap: https://makewithus.in/sitemap.xml
